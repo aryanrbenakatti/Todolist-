@@ -2,8 +2,6 @@
 	let todos = [];
 	let task = "";
 	let filter = 'All';
-	let src = './images/background.jpg'
-
 
 	function addTask() {
 		todos = [{
@@ -29,14 +27,27 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
+		overflow: hidden; /* Prevent scrolling */
 	}
 
 	body {
 		font-family: 'Arial', sans-serif;
-		background-image: url('');
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden; /* Prevent scrolling */
+	}
+
+	.background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('./images/background.jpg');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
+		z-index: -1;
 	}
 
 	.container {
@@ -45,42 +56,49 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: rgba(255, 255, 255, 0.8); 
-		backdrop-filter: blur(5px);
+		background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+		backdrop-filter: blur(8px); /* Adds a blur effect */
 	}
 
 	.todo {
 		padding: 30px;
-		background: #ffffff;
-		width: 300px;
-		border-radius: 12px;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		width: 400px;
+		height: auto; /* Auto height to prevent overflow */
+		background: rgba(255, 255, 255, 0.9); /* Transparent white background */
+		border-radius: 15px;
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
 	}
 
 	.todo .form {
 		display: flex;
+		width: 100%;
 		margin-bottom: 20px;
 	}
 
 	.todo .form input {
 		flex: 1;
-		padding: 10px;
+		padding: 12px;
 		border: 1px solid #ccc;
-		border-radius: 6px;
+		border-radius: 8px;
 		outline: none;
 		font-size: 16px;
+		transition: border-color 0.3s;
 	}
 
 	.todo .form input:focus {
-		border-color: #1e85eb;
+		border-color: #4caf50;
 	}
 
 	.todo .form button {
-		padding: 10px;
-		background-color: #1e85eb;
+		padding: 12px 20px;
+		background-color: #4caf50;
 		color: white;
 		border: none;
-		border-radius: 6px;
+		border-radius: 8px;
 		cursor: pointer;
 		font-size: 16px;
 		margin-left: 10px;
@@ -88,20 +106,22 @@
 	}
 
 	.todo .form button:hover {
-		background-color: #155a8a;
+		background-color: #388e3c;
 	}
 
 	.todo .tasks {
-		max-height: 300px;
-		overflow-y: auto;
+		width: 100%;
+		height: auto;
+		max-height: calc(100vh - 250px); /* Adjusted height to fit screen */
+		overflow-y: auto; /* Internal scroll for tasks only */
 		margin-bottom: 20px;
 	}
 
 	.todo .tasks > .task {
 		display: flex;
 		align-items: center;
-		background-color: #f9f9f9;
-		padding: 12px;
+		background-color: #f1f8e9; /* Light green for tasks */
+		padding: 10px;
 		margin-bottom: 10px;
 		border-radius: 8px;
 		transition: transform 0.3s;
@@ -112,7 +132,7 @@
 	}
 
 	.todo .tasks > .task.completed {
-		background-color: #e0f7fa;
+		background-color: #c8e6c9; /* Completed tasks have a darker green */
 	}
 
 	.todo .tasks > .task > div {
@@ -125,86 +145,65 @@
 	.todo .tasks > .task > button {
 		width: 30px;
 		height: 30px;
-		border: 1px solid #1e85eb;
 		border-radius: 50%;
+		border: none;
 		margin-left: 5px;
 		cursor: pointer;
-		background-color: transparent;
+		font-size: 16px;
 		transition: background-color 0.3s, color 0.3s;
 	}
 
-	.todo .tasks > .task > button.tick:hover {
-		background-color: #13c416;
+	.todo .tasks > .task > button.tick {
+		background-color: #81c784; /* Green for tick button */
 		color: white;
 	}
 
-	.todo .tasks > .task > button.tick.active {
-		background-color: #13c416; 
+	.todo .tasks > .task > button.tick:hover {
+		background-color: #66bb6a;
+	}
+
+	.todo .tasks > .task > button.cross {
+		background-color: #e57373; /* Red for cross button */
 		color: white;
 	}
 
 	.todo .tasks > .task > button.cross:hover {
-		background-color: #ff4c4c; 
-		color: white;
-	}
-
-	.todo .tasks > .task > button.cross {
-		background-color: transparent; 
-		color: #ff4c4c; 
-		border: 1px solid #ff4c4c;
+		background-color: #ef5350;
 	}
 
 	.todo .filters {
 		display: flex;
 		justify-content: space-between;
+		width: 100%;
 	}
 
 	.todo .filters > button {
+		flex: 1;
 		padding: 10px;
-		border: 1px solid #1e85eb;
-		border-radius: 15px;
-		background-color: white;
-		color: #1e85eb;
+		margin: 0 5px;
+		border: none;
+		border-radius: 8px;
+		background-color: #90caf9; /* Blue for filter buttons */
+		color: white;
 		cursor: pointer;
 		font-size: 16px;
-		transition: background-color 0.3s, color 0.3s;
-		margin-right: 10px;
+		transition: background-color 0.3s;
 	}
 
 	.todo .filters > button:hover {
-		background-color: #1e85eb;
-		color: white;
+		background-color: #42a5f5;
 	}
 
 	.todo .filters > button.active {
-		background-color: #1e85eb;
-		color: white;
-	}
-
-	.todo .filters > button:last-child {
-		margin-right: 0;
-	}
-
-	@media (max-width: 600px) {
-		.todo {
-			width: 90%;
-			padding: 20px;
-		}
-
-		.todo .form input {
-			font-size: 14px;
-		}
-
-		.todo .form button {
-			font-size: 14px;
-		}
+		background-color: #1e88e5; /* Darker blue for active filters */
 	}
 </style>
 
+<div class="background"></div>
 <div class="container">
 	<div class="todo">
+		<h2 style="margin-bottom: 20px; color: #4caf50;">Todo List</h2>
 		<div class="form">
-			
 			<input type="text" bind:value={task} placeholder="Enter your task" />
 			<button on:click={addTask}>Add</button>
 		</div>
@@ -214,7 +213,7 @@
 				{#if filter === 'all'}
 					<div class="task {todo.status}">
 						<div>{todo.task}</div>
-						<button class="tick {todo.status === 'completed' ? 'active' : ''}" on:click={() => markComplete(i)}>
+						<button class="tick" on:click={() => markComplete(i)}>
 							&#10004;
 						</button>
 						<button class="cross" on:click={() => removeTask(i)}>
@@ -234,7 +233,7 @@
 					{#if todo.status === 'pending'}
 						<div class="task">
 							<div>{todo.task}</div>
-							<button class="tick {todo.status === 'completed' ? 'active' : ''}" on:click={() => markComplete(i)}>
+							<button class="tick" on:click={() => markComplete(i)}>
 								&#10004;
 							</button>
 						</div>
