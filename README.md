@@ -1,12 +1,28 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+
 
 ---
 
-# svelte app
+# Svelte To-Do List App
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+This is a simple and dynamic To-Do List application built using [Svelte](https://svelte.dev). The app allows users to add tasks, mark them as completed, remove tasks, and filter them based on their status (All, Completed, Incomplete). It also supports adding a background image dynamically.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+## Features
+
+- Add new tasks with a status of "pending."
+- Mark tasks as "completed" with a green checkmark.
+- Delete tasks with a red cross button.
+- Filter tasks by "All," "Completed," or "Incomplete."
+- Responsive and user-friendly UI.
+- Dynamically set the background image from local storage.
+
+---
+
+# Svelte App Template
+
+This project is based on the Svelte template and lives at https://github.com/sveltejs/template.
+
+To create a new project using this template:
+
 
 ```bash
 npx degit sveltejs/template svelte-app
